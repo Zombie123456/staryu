@@ -107,9 +107,7 @@ module.exports = {
   },
   env: {
     apiHost:
-      (process.env.DOCKERIZED_DEV === 'true' && 'http://localhost:8000') ||
-      process.env.API_HOST ||
-      staging
+      'http://api.chalice.top'
   },
 
   /*

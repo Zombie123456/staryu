@@ -107,7 +107,7 @@ module.exports = {
   },
   env: {
     apiHost:
-      'http://api.chalice.top'
+      'http://api.chalice.top/backend_api'
   },
 
   /*

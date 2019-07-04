@@ -106,8 +106,7 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
   },
   env: {
-    apiHost:
-      'http://api.chalice.top/backend_api'
+    apiHost: 'https://60929lp.com'
   },
 
   /*

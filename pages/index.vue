@@ -451,10 +451,9 @@ export default {
     } = await this.$api.getCustomerServiceLink()
     // moment('2010-10-20').isSame('2009-12-31', 'year');
     // 判断相同日期
-    this.isSameDate = this.$moment().isSame(
-      this.$moment(events[0].date_from, 'YYYY-MM-DD'),
-      this.$moment(events[0].date_to, 'YYYY-MM-DD')
-    )
+    this.isSameDate = this.$moment(
+      this.$moment(events[0].date_from, 'YYYY-MM-DD')
+    ).isSame(this.$moment(events[0].date_to, 'YYYY-MM-DD'))
     // 判断是否在两个日期之间
     this.canClaimOnDate = this.$moment().isBetween(
       this.$moment(events[0].date_from, 'YYYY-MM-DD'),

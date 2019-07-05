@@ -397,6 +397,9 @@ export default {
     return {
       events: [],
       username: '',
+      limitTime: '',
+      issmeTime: '',
+      isSameDate: '',
       reward: '',
       claimLeft: 0,
       deposit: null,
@@ -408,10 +411,7 @@ export default {
       levels: [],
       winnerData1: [],
       winnerData2: [],
-      canClaimOnDate: this.$moment().isBetween(
-        this.$moment('14:00:00', 'H:mm:ss'),
-        this.$moment('23:59:59', 'H:mm:ss')
-      ),
+      canClaimOnDate: '',
       showList: this.$moment().isSameOrAfter('2019-05-02 14:00:00'),
       ads: [
         'ad1.png',
@@ -449,12 +449,23 @@ export default {
     const {
       data: { value: customerServiceLink }
     } = await this.$api.getCustomerServiceLink()
-
+    // moment('2010-10-20').isSame('2009-12-31', 'year');
+    // 判断相同日期
+    this.isSameDate = this.$moment().isSame(
+      this.$moment(events[0].date_from, 'YYYY-MM-DD'),
+      this.$moment(events[0].date_to, 'YYYY-MM-DD')
+    )
+    // 判断是否在两个日期之间
     this.canClaimOnDate = this.$moment().isBetween(
+      this.$moment(events[0].date_from, 'YYYY-MM-DD'),
+      this.$moment(events[0].date_to, 'YYYY-MM-DD')
+    )
+    // 判断是否在两个时间之间
+    this.issmeTime = this.$moment().isBetween(
       this.$moment(events[0].time_from, 'H:mm:ss'),
       this.$moment(events[0].time_to, 'H:mm:ss')
     )
-
+    this.limitTime = events[0]
     const winnerData1 = winners.slice(0, Math.round(winners.length / sliceNum))
     const winnerData2 = winners.slice(
       Math.round(winners.length / sliceNum),
@@ -491,12 +502,23 @@ export default {
     async claim() {
       const _self = this
       const username = this.username
+      console.log('==')
+      console.log()
+      console.log('==')
 
-      if (this.canClaimOnDate === false) return alert('抽奖时间: 14:00 ~ 23:59')
-
+      if (
+        (this.isSameDate && this.issmeTime) ||
+        (this.canClaimOnDate && this.issmeTime)
+      ) {
+        console.log('正在活动中')
+      } else {
+        return alert(
+          `抽奖时间:${this.limitTime.date_from}～～${this.limitTime.date_from}
+          每天:${this.limitTime.time_from}～～${this.limitTime.time_to}`
+        )
+      }
       if (this.canClaim && this.startSpin === false) {
         this.startSpin = true
-
         try {
           const { data: claim } = await this.$api.claimReward(username)
           const { data: claims } = await this.$api.getClaims(username)

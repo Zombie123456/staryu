@@ -171,7 +171,6 @@
                     </div>
                   </div>
                   <div
-                    v-if="canClaimOnDate"
                     style="margin-top:10px;font-size: 16px;font-weight: bold;"
                   >
                     您当前有
@@ -400,6 +399,7 @@ export default {
       limitTime: '',
       issmeTime: '',
       isSameDate: '',
+      presentTime: '',
       reward: '',
       claimLeft: 0,
       deposit: null,
@@ -459,11 +459,15 @@ export default {
       this.$moment(events[0].date_from, 'YYYY-MM-DD'),
       this.$moment(events[0].date_to, 'YYYY-MM-DD')
     )
+    this.presentTime = this.$moment(
+      this.$moment(events[0].date_from, 'YYYY-MM-DD')
+    ).isSame(this.$moment(this.$moment().format('YYYY-MM-DD'), 'YYYY-MM-DD'))
     // 判断是否在两个时间之间
     this.issmeTime = this.$moment().isBetween(
       this.$moment(events[0].time_from, 'H:mm:ss'),
       this.$moment(events[0].time_to, 'H:mm:ss')
     )
+
     this.limitTime = events[0]
     const winnerData1 = winners.slice(0, Math.round(winners.length / sliceNum))
     const winnerData2 = winners.slice(
@@ -506,7 +510,7 @@ export default {
       console.log('==')
 
       if (
-        (this.isSameDate && this.issmeTime) ||
+        (this.isSameDate && this.issmeTime && this.presentTime) ||
         (this.canClaimOnDate && this.issmeTime)
       ) {
         console.log('正在活动中')

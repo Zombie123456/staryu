@@ -164,10 +164,9 @@ body{font-size:12px; font-family:"微软雅黑"; /*background:#f7f7f6 url(body.j
 .alert-result {
     display: none;
     position: absolute;
-    top: 45%;
+    top: 10%;
     width: 100%;
     margin: 0px auto;
-    height: 100%;
     z-index: 101;
 }
 

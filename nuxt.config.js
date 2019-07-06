@@ -106,7 +106,7 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
   },
   env: {
-    apiHost: 'http://grizzly.gojsjs.com'
+    apiHost: 'https://api.60929lp.com'
   },
 
   /*

@@ -13,6 +13,15 @@
             </div>
             <div class="head_2">
               <a :href="domain" title="" target="_blank">官方首页</a>
+              <a :href="`${domain}Register`" title="" target="_blank"
+                >会员注册</a
+              >
+              <a :href="`${domain}Promotion`" title="" target="_blank"
+                >优惠申请</a
+              >
+              <a :href="getAppDownload.value" title="" target="_blank"
+                >APP下载
+              </a>
               <a :href="customerServiceLink" title="" target="_blank"
                 >在线客服
               </a>
@@ -400,6 +409,7 @@ export default {
       issmeTime: '',
       isSameDate: '',
       presentTime: '',
+      getAppDownload: '',
       reward: '',
       claimLeft: 0,
       deposit: null,
@@ -443,6 +453,7 @@ export default {
     const { data: winners } = await this.$api.getWinners()
     const { data: levels } = await this.$api.getLevels()
     const { data: events } = await this.$api.getEvents()
+    const { data: getAppDownload } = await this.$api.getAppDownload()
     const {
       data: { value: domain }
     } = await this.$api.getDomain()
@@ -467,7 +478,6 @@ export default {
       this.$moment(events[0].time_from, 'H:mm:ss'),
       this.$moment(events[0].time_to, 'H:mm:ss')
     )
-
     this.limitTime = events[0]
     const winnerData1 = winners.slice(0, Math.round(winners.length / sliceNum))
     const winnerData2 = winners.slice(
@@ -482,7 +492,8 @@ export default {
       levels,
       winnerData1,
       winnerData2,
-      events
+      events,
+      getAppDownload
     })
 
     $('.list_lh li:even').addClass('lieven')

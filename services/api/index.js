@@ -111,3 +111,6 @@ export const getDomain = () =>
 
 export const getCustomerServiceLink = () =>
   axios.get('/member/global-preferences/customer_service').then(res => res.data)
+
+export const getAppDownload = () =>
+  axios.get('/member/global-preferences/app_download').then(res => res.data)

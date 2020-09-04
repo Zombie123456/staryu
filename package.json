@@ -18,7 +18,7 @@
     "cross-env": "^5.2.0",
     "express": "^4.16.4",
     "nuxt": "^2.7.1",
-    "vue-moment": "^4.0.0",
+    "vue-moment": "^4.1.0",
     "vue-numeral-filter": "^1.1.1",
     "vuetify": "^1.5.2"
   },
